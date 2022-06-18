@@ -381,17 +381,12 @@ AffinBigramSubstituteHacking::hack_decode_encoded_text( const std::wstring& Y )
         {
             auto X_2 = top_rus_bigrams[j];
             auto numeric_X_2 = get_bigram_number( X_2, alphabet_clear );
-            //for (; first_top_bigram_it != top_bigrams_in_encoded_text.rend(); first_top_bigram_it++)
             for( size_t k = 0; k < top_5_bigrams_in_encoded_text.size( ) - 1; k++ )
             {
-                //++second_top_bigram_it;
-                //auto Y_1 = first_top_bigram_it->second;
                 auto Y_1 = top_5_bigrams_in_encoded_text[k];
                 auto numeric_Y_1 = get_bigram_number( Y_1, alphabet_clear );
-                //for (; second_top_bigram_it != top_bigrams_in_encoded_text.rend(); second_top_bigram_it++)
                 for( size_t l = k + 1; l < top_5_bigrams_in_encoded_text.size( ); l++ )
                 {
-                    //auto Y_2 = second_top_bigram_it->second;
                     auto Y_2 = top_5_bigrams_in_encoded_text[l];
                     auto numeric_Y_2 = get_bigram_number( Y_2, alphabet_clear );
 
@@ -499,77 +494,17 @@ int main()
 
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     std::wstring input;
-    //std::wstring dead_souls_text;
     std::string line;
     std::ifstream fin;
-/*
-    fin.open( "dead_souls.txt", std::ifstream::in );
-    while (std::getline(fin, line, '\n') && !line.empty())
-    {
-        dead_souls_text += converter.from_bytes(line);
-    }
-    fin.close( );
-    
-    dead_souls_text = lower_case( dead_souls_text );
-    const auto top_dead_souls_bigrams = top_bigrams( dead_souls_text );
-    for ( auto it = top_dead_souls_bigrams.rbegin(); it != top_dead_souls_bigrams.rend(); ++it )
-    {
-        std::wcout << (*it).first << L" " << (*it).second << std::endl;
-    }
 
-    const auto dead_souls_bigrams_counter = bigram_count( dead_souls_text );
-    size_t sum_of_wrong_bigrams = 0;
-    for ( const auto block_bigram : blocked_rus_bigrams )
-    {
-        auto wrong_bigram = dead_souls_bigrams_counter.find( block_bigram );
-        if ( wrong_bigram != dead_souls_bigrams_counter.end( ) )
-        {
-            std::wcout << (*wrong_bigram).first << " - " << (*wrong_bigram).second << std::endl;
-            sum_of_wrong_bigrams += (*wrong_bigram).second;
-        }
-    }
-    std::wcout << "Sum of wrong bigrams in Gogol dead souls: " << sum_of_wrong_bigrams << std::endl;
-    */
     fin.open( "04.txt", std::ifstream::in );
     while (std::getline(fin, line, '\n') && !line.empty())
     {
         input += converter.from_bytes(line);
     }
     fin.close( );
-    /*
-    auto encoded_text_vec = AffinBigramSubstituteEncoder::encode( input, 390, 10 );
-
-    auto encoded_text = AffinBigramSubstituteEncoder::get_encoded_text( encoded_text_vec );
-    std::wcout << L"Encoded:\n" << encoded_text << std::endl;
-
-    auto decoded_text = AffinBigramSubstituteDecoder::decode( encoded_text, 390, 10 );
-    std::wcout << L"Decoded from str:\n" << decoded_text << std::endl;
-
-    decoded_text = AffinBigramSubstituteDecoder::decode( encoded_text_vec, 390, 10 );
-    std::wcout << L"Decoded from vec:\n" << decoded_text << std::endl;
     
-    const auto top_encoded_text_bigrams = top_bigrams( encoded_text );
-    for ( auto it = top_encoded_text_bigrams.rbegin(); it != top_encoded_text_bigrams.rend(); ++it )
-    {
-        std::wcout << (*it).first << L" " << (*it).second << std::endl;
-    }
-
-    const auto encoded_text_bigrams_counter = bigram_count( encoded_text );
-    sum_of_wrong_bigrams = 0;
-    for ( const auto block_bigram : blocked_rus_bigrams )
-    {
-        auto wrong_bigram = encoded_text_bigrams_counter.find( block_bigram );
-        if ( wrong_bigram != encoded_text_bigrams_counter.end( ) )
-        {
-            std::wcout << (*wrong_bigram).first << " - " << (*wrong_bigram).second << std::endl;
-            sum_of_wrong_bigrams += (*wrong_bigram).second;
-        }
-    }
-    std::wcout << "Sum of wrong bigrams in Encoded text: " << sum_of_wrong_bigrams << std::endl;
-    */
     auto hack_result = AffinBigramSubstituteHacking::hack_decode_encoded_text( input );
-    // auto hack_result = AffinBigramSubstituteHacking::bruteforce( input );
-    //auto hack_result = AffinBigramSubstituteHacking::bruteforce_optimize( input );
     std::wcout << hack_result << std::endl;
     return 0;
 }
