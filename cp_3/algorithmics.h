@@ -46,7 +46,6 @@ const std::map<wchar_t, wchar_t> lowercase =
     {L'Ч',L'ч'},
     {L'Ш',L'ш'},
     {L'Щ',L'щ'},
-    //{L'Ъ',L'Ъ'},
     {L'Ы',L'ы'},
     {L'Ь',L'ь'},
     {L'Э',L'э'},
@@ -79,13 +78,11 @@ const std::map<wchar_t, wchar_t> lowercase =
     {L'ч',L'ч'},
     {L'ш',L'ш'},
     {L'щ',L'щ'},
-    //{L'ъ',L'ъ'},
     {L'ы',L'ы'},
     {L'ь',L'ь'},
     {L'э',L'э'},
     {L'ю',L'ю'},
     {L'я',L'я'},
-    //{L' ',L' '}
 };
 
 
