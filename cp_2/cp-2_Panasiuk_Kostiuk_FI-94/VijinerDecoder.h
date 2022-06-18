@@ -161,14 +161,8 @@ VijinerDecoder::get_period( const std::wstring&  Y )
         D_r.push_back( VijinerDecoder::same_pares_counter( Y, r ) );
     }
 
-    // for ( const auto& el : D_r )
-    // {
-    //    std::wcout << el << std::endl;
-    // }
-
     auto max_el = std::max_element( std::begin( D_r ), std::end( D_r ) );
     double max = *max_el;
-    // std::wcout << "Max: " << max << std::endl;
     
     r = std::distance( std::begin( D_r ), max_el ) + 2;
     
