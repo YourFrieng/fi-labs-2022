@@ -1,4 +1,5 @@
-﻿#include <iostream>
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <cctype>
@@ -6,8 +7,9 @@
 #include <cwctype>
 #include <map>
 #include <cmath>
-#include <fstream>
 #include <sstream>
+#include <locale>
+#include <codecvt>
 
 using namespace std;
 const map<wchar_t, wchar_t> lowercase =
@@ -129,6 +131,7 @@ auto letter_frequency(wstring input) {
     for (const auto& c : input) {
         ++let_counter[c];
     }
+    
     output_frequency(let_counter);
     return let_counter;
 }
@@ -172,15 +175,26 @@ double letter_entrop( const wstring& input )
     }
 
     result *= -1;
-    
+    std::wcout << "H1 = ";
     return result;
+}
+
+double bigram_sum( const map<wstring, size_t>& bigrams )
+{
+    size_t dick = 0;
+    for ( const auto& bigram : bigrams )
+    {
+        dick += bigram.second;
+    }
+    
+    return dick;
 }
 
 double bigram_entrop( const wstring& input )
 {
     auto parsed_input = parse( input );
     auto bigrams_count = bigram_count( parsed_input );
-    auto all_bigrams = bigrams_count.size( );
+    auto all_bigrams = bigram_sum( bigrams_count );
     double result = 0;
     
     for ( const auto& pair_bigram_count : bigrams_count )
@@ -202,23 +216,25 @@ int main()
     system("chcp 1251"); // настраиваем кодировку консоли
     #endif
 
-    
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     wstring input;
-    wstring line;
-    wcout << L"Введите текст на русском языке: ";
-    while (getline(std::wcin, line) && !line.empty( ))
+    string line;
+    //wcout << L"Введите текст на русском языке: ";
+    std::ifstream fin( "./dead_souls.txt" );
+    while (getline(fin, line, '\n') && !line.empty())
     {
-        input += line;
+        input += converter.from_bytes(line);
     }
-     
-
+    fin.close( );
+    
     input = parse(input);
     wcout << input << endl;
-    
     //letter_frequency(input);
     //bigram_count(input);
 
     wcout << letter_entrop( input ) << std::endl;
-    wcout << bigram_entrop( input ) << std::endl;
+    auto entropia_bigrams = bigram_entrop( input );
+    wcout << entropia_bigrams << std::endl;
+    wcout << L"Result: H2 = " << entropia_bigrams / 2 << std::endl;
 }
 
