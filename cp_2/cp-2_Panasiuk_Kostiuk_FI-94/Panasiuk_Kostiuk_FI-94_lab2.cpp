@@ -23,7 +23,6 @@ int main()
     fin.close( );
     
     input = lower_case( input );
-    //VijinerEncoder::set_key(L"либа");
 
     std::wcout << input << std::endl;
 
@@ -33,17 +32,6 @@ int main()
     {
         std::wcout << L"I" << r << " = " << VijinerDecoder::compliance_index( input, r ) << std::endl;
     }
-    
-
-    //input = VijinerEncoder::encode( input );
-    //std::wcout << input << std::endl;
-    // std::wcout << L"I" << 0 << " = " << VijinerDecoder::compliance_index( input ) << std::endl;
-    // for (size_t r = 2; r < 6; r++)
-    // {
-    //     std::wcout << L"I" << r << " = " << VijinerDecoder::compliance_index( input, r ) << std::endl;
-    // }
-
-    // std::wcout << VijinerDecoder::get_period( input ) << std::endl;
 
     std::vector<size_t> r = VijinerDecoder::get_period_v( input );
 
@@ -53,7 +41,6 @@ int main()
         std::wcout << el << std::endl;
         auto maybe_key = VijinerDecoder::get_key_variant1( input, L'о', el );
         std::wcout << maybe_key << std::endl;
-        //std::wcout << VijinerDecoder::decode( input, maybe_key ) << std::endl;
     }
 
     std::wcout << L"Method 2" << std::endl;
